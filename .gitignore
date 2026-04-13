@@ -1,0 +1,112 @@
+# =========================
+# 🔹 Compiled Java Files
+# =========================
+*.class
+
+# =========================
+# 🔹 Logs
+# =========================
+*.log
+
+# =========================
+# 🔹 BlueJ files (if used)
+# =========================
+*.ctxt
+
+# =========================
+# 🔹 Package Files
+# =========================
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# =========================
+# 🔹 JVM Crash Logs
+# =========================
+hs_err_pid*
+
+# =========================
+# 🔹 IDE: IntelliJ IDEA
+# =========================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# =========================
+# 🔹 IDE: Eclipse
+# =========================
+.project
+.classpath
+.settings/
+bin/
+
+# =========================
+# 🔹 IDE: VS Code
+# =========================
+.vscode/
+
+# =========================
+# 🔹 Build Tools
+# =========================
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# =========================
+# 🔹 OS Files
+# =========================
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# =========================
+# 🔹 Temporary Files
+# =========================
+*.tmp
+*.swp
+*.bak
+*.temp
+
+# =========================
+# 🔹 Environment Files
+# =========================
+.env
+.env.*
+
+# =========================
+# 🔹 Misc
+# =========================
+*.pid
+*.seed
+*.lock
+
+# =========================
+# 🔹 Test Output (optional)
+# =========================
+/test-output/
+/logs/
+
+# =========================
+# 🔹 Coverage Reports
+# =========================
+coverage/
