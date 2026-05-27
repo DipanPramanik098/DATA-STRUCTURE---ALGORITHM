@@ -1,4 +1,4 @@
-package _17_Heaps._02_FAQs;
+package _017_Heaps._02_FAQs;
 
 import java.util.PriorityQueue;
 

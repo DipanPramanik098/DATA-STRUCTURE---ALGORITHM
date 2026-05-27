@@ -1,4 +1,4 @@
-package _17_Heaps._01_Theory_And_Implementation;
+package _017_Heaps._01_Theory_And_Implementation;
 
 public class _06_Check_if_An_Array_Represent_A_Min_Heap {
 

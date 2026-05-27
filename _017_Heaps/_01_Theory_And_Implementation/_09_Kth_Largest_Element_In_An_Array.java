@@ -1,4 +1,4 @@
-package _17_Heaps._01_Theory_And_Implementation;
+package _017_Heaps._01_Theory_And_Implementation;
 
 import java.util.Random;
 

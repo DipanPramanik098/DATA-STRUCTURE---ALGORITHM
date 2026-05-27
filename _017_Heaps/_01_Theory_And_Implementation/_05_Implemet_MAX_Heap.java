@@ -1,70 +1,70 @@
-package _17_Heaps._01_Theory_And_Implementation;
+package _017_Heaps._01_Theory_And_Implementation;
 
 import java.util.ArrayList;
 
-public class _04_Implement_MIN_Heap {
+public class _05_Implemet_MAX_Heap {
 
     /*
     ==========================================================
-                    IMPLEMENTATION OF MIN HEAP
+                    IMPLEMENTATION OF MAX HEAP
     ==========================================================
 
-    A Min Heap is a Complete Binary Tree where:
+    A Max Heap is a Complete Binary Tree where:
 
-    Parent Node <= Child Nodes
+            Parent Node >= Child Nodes
 
-    Smallest element is always present at the ROOT.
-
-    ----------------------------------------------------------
-    ARRAY REPRESENTATION
-    ----------------------------------------------------------
-
-    For any index i:
-
-    Parent      -> (i - 1) / 2
-    Left Child  -> (2 * i) + 1
-    Right Child -> (2 * i) + 2
+    Largest element is always present at ROOT.
 
     ----------------------------------------------------------
-    OPERATIONS IMPLEMENTED
+                    ARRAY REPRESENTATION
+    ----------------------------------------------------------
+
+    For a node present at index i:
+
+    Parent Index      = (i - 1) / 2
+    Left Child Index  = (2 * i) + 1
+    Right Child Index = (2 * i) + 2
+
+    ----------------------------------------------------------
+                    OPERATIONS IMPLEMENTED
     ----------------------------------------------------------
 
     1. initializeHeap()
        -> Initialize empty heap
 
     2. insert(x)
-       -> Insert a new element
+       -> Insert a new value
 
-    3. getMin()
-       -> Return minimum element
+    3. getMax()
+       -> Return maximum element
 
-    4. extractMin()
-       -> Remove minimum element
+    4. extractMax()
+       -> Remove maximum element
 
     5. heapSize()
-       -> Return current size
+       -> Return current heap size
 
     6. isEmpty()
-       -> Check heap is empty or not
+       -> Check heap empty or not
 
     7. changeKey(index, value)
-       -> Update a value at particular index
+       -> Update value at given index
 
     ----------------------------------------------------------
-    INTERNAL FUNCTIONS
+                    INTERNAL FUNCTIONS
     ----------------------------------------------------------
 
     heapifyUp()
     heapifyDown()
 
-    These functions maintain the Min Heap Property.
+    These functions maintain the Max Heap Property.
     */
 
     // Dynamic Array used to store heap elements
     private ArrayList<Integer> heap;
 
     // Constructor
-    public _04_Implement_MIN_Heap() {
+    public _05_Implemet_MAX_Heap() {
         heap = new ArrayList<>();
     }
 
@@ -73,7 +73,7 @@ public class _04_Implement_MIN_Heap {
                     INITIALIZE HEAP
     ==========================================================
 
-    Clears all elements from heap.
+    Clears all heap elements.
 
     Time Complexity  : O(1)
     Space Complexity : O(1)
@@ -89,48 +89,49 @@ public class _04_Implement_MIN_Heap {
 
     STEPS:
     ------
-    1. Insert element at the end.
-    2. Heapify Up to maintain Min Heap Property.
+    1. Insert element at last position.
+    2. Heapify upwards.
 
     WHY HEAPIFY UP?
     ----------------
-    Newly inserted element may be smaller than parent.
+    Inserted value may become larger than parent.
 
     Example:
     --------
-            2
-          /   \
-         5     7
 
-    Insert 1:
+            20
+           /  \
+         15    10
 
-            2
-          /   \
-         5     7
-        /
-       1
+    Insert 30:
 
-    Since 1 < 5, swap.
+            20
+           /  \
+         15    10
+         /
+       30
 
-            2
-          /   \
-         1     7
-        /
-       5
+    Since 30 > 15, swap.
 
-    Since 1 < 2, swap again.
+            20
+           /  \
+         30    10
+         /
+       15
 
-            1
-          /   \
-         2     7
-        /
-       5
+    Since 30 > 20, swap again.
 
-    Final Heap formed.
+            30
+           /  \
+         20    10
+         /
+       15
+
+    Max Heap restored.
     */
     public void insert(int val) {
 
-        // Add element at last
+        // Insert at end
         heap.add(val);
 
         // Heapify upwards
@@ -142,32 +143,30 @@ public class _04_Implement_MIN_Heap {
                         HEAPIFY UP
     ==========================================================
 
-    Used after insertion or decreasing key.
+    Used after insertion or increasing key.
 
-    Continue swapping child with parent
-    until Min Heap Property is restored.
+    Compare current node with parent.
+    Swap if current node is greater.
 
     Time Complexity : O(log N)
     */
     private void heapifyUp(int index) {
 
-        // Continue until root node
         while (index > 0) {
 
             // Parent index
             int parent = (index - 1) / 2;
 
-            // If current node is smaller than parent
-            if (heap.get(index) < heap.get(parent)) {
+            // If child is greater than parent
+            if (heap.get(index) > heap.get(parent)) {
 
-                // Swap
                 swap(index, parent);
 
                 // Move upward
                 index = parent;
             } else {
 
-                // Heap property satisfied
+                // Max Heap property satisfied
                 break;
             }
         }
@@ -175,14 +174,14 @@ public class _04_Implement_MIN_Heap {
 
     /*
     ==========================================================
-                        GET MINIMUM
+                        GET MAXIMUM
     ==========================================================
 
-    Root always stores minimum value.
+    Root always contains largest value.
 
     Time Complexity : O(1)
     */
-    public int getMin() {
+    public int getMax() {
 
         if (isEmpty()) {
             throw new RuntimeException("Heap is Empty");
@@ -193,10 +192,10 @@ public class _04_Implement_MIN_Heap {
 
     /*
     ==========================================================
-                        EXTRACT MINIMUM
+                        EXTRACT MAXIMUM
     ==========================================================
 
-    Removes smallest element from heap.
+    Removes largest element from heap.
 
     STEPS:
     ------
@@ -207,34 +206,34 @@ public class _04_Implement_MIN_Heap {
 
     WHY HEAPIFY DOWN?
     -----------------
-    Root may violate heap property after replacement.
+    Root may violate max heap property.
 
     Time Complexity : O(log N)
     */
-    public int extractMin() {
+    public int extractMax() {
 
         if (isEmpty()) {
             throw new RuntimeException("Heap is Empty");
         }
 
-        // Minimum element
-        int min = heap.get(0);
+        // Store maximum value
+        int max = heap.get(0);
 
         // Last element
         int last = heap.get(heap.size() - 1);
 
-        // Put last element at root
+        // Replace root with last element
         heap.set(0, last);
 
         // Remove last element
         heap.remove(heap.size() - 1);
 
-        // Heapify only if heap not empty
+        // Heapify if heap not empty
         if (!isEmpty()) {
             heapifyDown(0);
         }
 
-        return min;
+        return max;
     }
 
     /*
@@ -242,10 +241,15 @@ public class _04_Implement_MIN_Heap {
                         HEAPIFY DOWN
     ==========================================================
 
-    Used after deletion or increasing key.
+    Used after deletion or decreasing key.
 
     Compare current node with children.
-    Swap with smallest child if needed.
+    Swap with largest child.
+
+    IMPORTANT:
+    ----------
+    If both children are equal,
+    ALWAYS swap with LEFT CHILD.
 
     Time Complexity : O(log N)
     */
@@ -258,30 +262,38 @@ public class _04_Implement_MIN_Heap {
             int left = (2 * index) + 1;
             int right = (2 * index) + 2;
 
-            // Assume current node is smallest
-            int smallest = index;
+            // Assume current node is largest
+            int largest = index;
 
             // Check left child
             if (left < size &&
-                    heap.get(left) < heap.get(smallest)) {
+                    heap.get(left) > heap.get(largest)) {
 
-                smallest = left;
+                largest = left;
             }
 
-            // Check right child
+            /*
+            IMPORTANT CONDITION:
+            --------------------
+            Use STRICTLY GREATER only.
+
+            This ensures:
+            If left and right are equal,
+            LEFT child remains selected.
+            */
             if (right < size &&
-                    heap.get(right) < heap.get(smallest)) {
+                    heap.get(right) > heap.get(largest)) {
 
-                smallest = right;
+                largest = right;
             }
 
-            // If smallest is not current node
-            if (smallest != index) {
+            // If largest changed
+            if (largest != index) {
 
-                swap(index, smallest);
+                swap(index, largest);
 
                 // Move downward
-                index = smallest;
+                index = largest;
 
             } else {
 
@@ -296,16 +308,16 @@ public class _04_Implement_MIN_Heap {
                         CHANGE KEY
     ==========================================================
 
-    Update value at a particular index.
+    Update value at a given index.
 
     CASE 1:
     --------
-    New value is SMALLER
+    New value is GREATER
     -> Heapify Up
 
     CASE 2:
     --------
-    New value is GREATER
+    New value is SMALLER
     -> Heapify Down
 
     Time Complexity : O(log N)
@@ -322,8 +334,8 @@ public class _04_Implement_MIN_Heap {
         // Update value
         heap.set(index, newValue);
 
-        // If value decreased
-        if (newValue < oldValue) {
+        // If value increased
+        if (newValue > oldValue) {
 
             heapifyUp(index);
 
@@ -393,37 +405,37 @@ public class _04_Implement_MIN_Heap {
     */
     public static void main(String[] args) {
 
-        _04_Implement_MIN_Heap minHeap =
-                new _04_Implement_MIN_Heap();
+        _05_Implemet_MAX_Heap maxHeap =
+                new _05_Implemet_MAX_Heap();
 
         /*
         ------------------------------------------------------
                         INITIALIZE HEAP
         ------------------------------------------------------
         */
-        minHeap.initializeHeap();
+        maxHeap.initializeHeap();
 
         /*
         ------------------------------------------------------
                             INSERT
         ------------------------------------------------------
         */
-        minHeap.insert(10);
-        minHeap.insert(4);
-        minHeap.insert(15);
-        minHeap.insert(2);
-        minHeap.insert(8);
+        maxHeap.insert(4);
+        maxHeap.insert(1);
+        maxHeap.insert(10);
+        maxHeap.insert(20);
+        maxHeap.insert(15);
 
         System.out.println("Heap After Insertions:");
-        minHeap.printHeap();
+        maxHeap.printHeap();
 
         /*
         ------------------------------------------------------
-                            GET MIN
+                            GET MAX
         ------------------------------------------------------
         */
-        System.out.println("\nMinimum Element:");
-        System.out.println(minHeap.getMin());
+        System.out.println("\nMaximum Element:");
+        System.out.println(maxHeap.getMax());
 
         /*
         ------------------------------------------------------
@@ -431,7 +443,7 @@ public class _04_Implement_MIN_Heap {
         ------------------------------------------------------
         */
         System.out.println("\nHeap Size:");
-        System.out.println(minHeap.heapSize());
+        System.out.println(maxHeap.heapSize());
 
         /*
         ------------------------------------------------------
@@ -439,29 +451,29 @@ public class _04_Implement_MIN_Heap {
         ------------------------------------------------------
         */
         System.out.println("\nIs Heap Empty?");
-        System.out.println(minHeap.isEmpty());
+        System.out.println(maxHeap.isEmpty());
 
         /*
         ------------------------------------------------------
-                            EXTRACT MIN
+                            EXTRACT MAX
         ------------------------------------------------------
         */
-        System.out.println("\nExtracted Minimum:");
-        System.out.println(minHeap.extractMin());
+        System.out.println("\nExtracted Maximum:");
+        System.out.println(maxHeap.extractMax());
 
         System.out.println("\nHeap After Extraction:");
-        minHeap.printHeap();
+        maxHeap.printHeap();
 
         /*
         ------------------------------------------------------
                             CHANGE KEY
         ------------------------------------------------------
         */
-        System.out.println("\nChange Index 2 to 1");
+        System.out.println("\nChange Index 2 to 50");
 
-        minHeap.changeKey(2, 1);
+        maxHeap.changeKey(2, 50);
 
         System.out.println("\nHeap After changeKey:");
-        minHeap.printHeap();
+        maxHeap.printHeap();
     }
 }
